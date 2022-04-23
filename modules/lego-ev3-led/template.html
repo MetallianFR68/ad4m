@@ -1,0 +1,7 @@
+<div id="{{TAB_ID}}_{{DEVICE_ID}}" class="column has-text-centered">
+	<div id="{{TAB_ID}}_{{DEVICE_ID}}_friendly_name" class="title is-4"></div>
+	<span id="{{TAB_ID}}_{{DEVICE_ID}}_icon" class="icon is-large" onclick="window['{{TAB_ID}}']['{{DEVICE_ID}}']['click']()">
+		<i class="fas fa-lightbulb fa-2x"></i>
+	</span>
+	<input id="{{TAB_ID}}_{{DEVICE_ID}}_slider" class="slider is-large is-fullwidth" type="range" step="1" min="0" value="0" max="255" onchange="window['{{TAB_ID}}']['{{DEVICE_ID}}']['slider_change']()">
+</div>

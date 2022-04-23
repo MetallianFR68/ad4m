@@ -1,0 +1,8 @@
+<div id="{{TAB_ID}}_usbports_{{GROUP_ID}}" class="container mt-6">
+	<span class="title">USB Ports</span>
+	<button class="button is-success" style="margin-left:24px" onclick="this.parentNode.querySelectorAll('.switch').forEach(input => {if (!input.disabled) {input.checked = true; input.onchange()}})">All ON</button>
+	<button class="button is-danger" style="margin-left:24px"onclick="this.parentNode.querySelectorAll('.switch').forEach(input => {if (!input.disabled) {input.checked = false; input.onchange()}})">All OFF</button><br/><br/>
+	<div class="box" style="border-top:3px solid hsl(217, 71%, 53%)">
+		<div id="{{TAB_ID}}_usbports_{{GROUP_ID}}_columns" class="columns is-centered is-multiline"></div>
+	</div>
+</div>

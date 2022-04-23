@@ -1,0 +1,18 @@
+<div id="{{TAB_ID}}_{{DEVICE_ID}}" class="column is-3 motor">
+	<div id="{{TAB_ID}}_{{DEVICE_ID}}_image" class="column box" style="border-top:3px solid hsl(217, 71%, 53%)">
+		<div class="container" style="text-align:right;margin-top:-2px">
+			<div class="dropdown is-right"onclick="change_driver_dropdown(this)">
+				<div class="dropdown-trigger">
+				<button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+					<span class="icon is-small">
+					<i class="fas fa-gear" aria-hidden="true"></i>
+					</span>
+				</button>
+				</div>
+				<div class="dropdown-menu is-visible" id="{{TAB_ID}}_{{DEVICE_ID}}_driver_change_dropdown_menu" role="menu">
+				<div id="{{TAB_ID}}_port{{PORT_NUMBER}}_driver_change_dropdown_menu_content" class="dropdown-content has-text-left is-visible"></div>
+			</div>
+		</div>
+		<img class="image" src="/modules/act-l12-ev3-100/image.png">
+	</div>
+</div>

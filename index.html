@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>AD4M</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-slider@2.0.4/dist/css/bulma-slider.min.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-switch@2.0.4/dist/css/bulma-switch.min.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css">
+		<script src="https://unpkg.com/bulma-toast"></script>
+
+		<script src="config.js"></script>
+		<script src="tabs.js"></script>
+		<script>
+
+			
+			function new_tab(tab)
+			{
+				document.querySelectorAll('#tabs > ul > li')[tabs.findIndex(item => item.id == tab.id)].id = tab.id + '_tab';
+				document.querySelectorAll('#tabs > ul > li')[tabs.findIndex(item => item.id == tab.id)].onclick = function() {change_tab(this.id)}
+
+				let a = document.createElement('a')
+				a.innerText = tab.name
+				document.querySelectorAll('#tabs > ul > li')[tabs.findIndex(item => item.id == tab.id)].appendChild(a)
+
+				document.querySelector('#tabs_contents').innerHTML += templates[tab.driver].replace(/{{TAB_ID}}/g, tab.id)
+				if (tab.active)
+				{
+					document.querySelectorAll('#tabs > ul > li')[tabs.findIndex(item => item.id == tab.id)].classList.add('is-active')
+					document.querySelector('#'+tab.id).classList.remove('is-hidden')
+				}
+			}
+
+			function change_tab(id)
+			{
+				document.querySelectorAll('#tabs > ul > li').forEach(tab => tab.classList.remove('is-active'))
+				document.querySelectorAll('#tabs_contents > div').forEach(tab => tab.classList.add('is-hidden'))
+				document.getElementById(id).classList.add('is-active')
+				document.getElementById(id.split('_')[0]).classList.remove('is-hidden')
+				current_tab = id.split('_')[0];
+			}
+
+			function active_tab()
+			{
+				for (i=0; i < document.querySelectorAll('.tabs ul li').length; i++)
+					if (document.querySelectorAll('.tabs ul li')[i].classList.contains('is-active'))
+						break
+				return i
+			}
+
+			function get_tab_data(tab_name)
+			{
+				return tabs.find(tab => tab.id == tab_name)
+			}
+
+			function load_component(component, name)
+			{
+				return new Promise
+				(
+					function(resolve, reject)
+					{
+						if (templates[component])
+							resolve()
+						else
+							fetch('/modules/' + component + '/template.html')
+							.then(response => 
+							{
+								if (response.status == 200)
+									return response.text()
+								else if (response.status == 404)
+									throw 'No template available for ' + component
+							})
+							.then(device_template => 
+							{
+								templates[component] = device_template
+								import('/modules/' + component + '/scripts.js')
+								.then((module) => 
+								{
+									window.classes[component] = module.default
+									resolve(device_template)
+								});
+							})
+							.catch(error => bulmaToast.toast({message: 'Error loading template ' + component + '.html :<br/>' + error.toString(), type: 'is-warning', position: 'bottom-right', duration: 5000, dismissible: true, pauseOnHover: true}))
+					}
+				)
+				.catch(error => bulmaToast.toast({message: 'Error initiating ' + component + ' :<br/>' + error.toString(), type: 'is-warning', position: 'bottom-right', duration: 5000, dismissible: true, pauseOnHover: true}))
+			}
+		</script>
+	</head>
+
+	<body>
+
+		<div class="container">
+
+			<div id="tabs" class="tabs is-centered is-toggle is-fullwidth"><ul></ul></div>
+			<div id="tabs_contents"></div>
+			<div id="commons"></div>
+
+		</div>
+
+		<script>
+			window.clicked_device = new Object()
+			window.templates = new Object()
+			window.classes = new Object()
+			window.url = new URL(window.location)
+
+			
+			current_tab = tabs.find(tab => tab.active == true).id;
+			for (let tab of tabs)
+				document.getElementById('tabs').firstChild.appendChild(document.createElement('li'))
+			for (let tab of tabs)
+				load_component(tab.driver, tab.id).then(response => 
+				{
+					new_tab(tab)
+					window[tab.id] = new window.classes[tab.driver](tab)
+					window[tab.id].init(tab)
+				})
+		
+		</script>
+
+	</body>
+</html>

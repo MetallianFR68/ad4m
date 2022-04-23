@@ -1,0 +1,54 @@
+<span class="title">Motors</span>
+<span class="icon is-large has-text-danger pb-2" onclick="this.classList.add('has-text-danger'); document.getElementById('motors_heartbeat_icon').classList.toggle('fa-heart-pulse'); update.motors = !update.motors; update_devices(get_tab_data('{{TAB_ID}}'), 'motors')">
+		<i id="motors_heartbeat_icon" class="fas fa-heart-crack fa-heart-pulse fa-xl"></i>
+	</span>
+<button id="{{TAB_ID}}_motors_stop_all" class="button is-danger" style="margin-left:24px" onclick="all_motors(this, 'stop')"><span class="icon"><i class="fas fa-power-off"></i></span><span>Stop All</span></button>
+<button id="{{TAB_ID}}_motors_reset_all" class="button is-danger" style="margin-left:24px" onclick="all_motors(this, 'reset')"><span class="icon"><i class="fas fa-trash-arrow-up"></i></span><span>Reset All</span></button>
+<div id="{{TAB_ID}}_motors_columns" class="columns is-centered mt-2">
+	<div id="{{TAB_ID}}_motor0" class="column has-text-centered is-3"></div>
+	<div id="{{TAB_ID}}_motor1" class="column has-text-centered is-3"></div>
+	<div id="{{TAB_ID}}_motor2" class="column has-text-centered is-3"></div>
+	<div id="{{TAB_ID}}_motor3" class="column has-text-centered is-3"></div>
+</div>
+
+<div id="position_modal" class="modal">
+	<div class="modal-background"></div>
+	<div class="modal-content">
+		<div class="box has-text-centered">
+			<h1 class="title is-4">Envoyer le moteur à la position suivante :</h1>
+			<form action="javascript:setTimeout(function(){send(clicked_device,'command','run-to-abs-pos')},200);document.querySelectorAll('.modal').forEach((modal) => modal.classList.remove('is-active'))">
+				<input id="position_input" class="input" type="text" pattern="^-?[0-9]+" placeholder="Position" title="Un entier positif ou négatif" onchange="send(clicked_device, 'position_sp', this.value)">
+				<input type="submit" class="button is-success mt-5" value="OK">
+				<button type="button" class="button is-danger mt-5" onclick="document.querySelectorAll('.modal').forEach((modal) => modal.classList.remove('is-active'))">ANNULER</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div id="step_modal" class="modal">
+	<div class="modal-background"></div>
+	<div class="modal-content">
+		<div class="box has-text-centered">
+			<h1 class="title is-4">Faire avancer le moteur du nombre de pas suivant :</h1>
+			<form action="javascript:setTimeout(function(){send(clicked_device,'command','run-to-rel-pos')},200);document.querySelectorAll('.modal').forEach((modal) => modal.classList.remove('is-active'))">
+				<input id="step_input" class="input" type="text" pattern="^-?[0-9]+" placeholder="Position" title="Un entier positif ou négatif" onchange="send(clicked_device, 'position_sp', this.value)">
+				<input type="submit" class="button is-success mt-5" value="OK">
+				<button type="button" class="button is-danger mt-5" onclick="document.querySelectorAll('.modal').forEach((modal) => modal.classList.remove('is-active'))">ANNULER</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div id="time_modal" class="modal">
+	<div class="modal-background"></div>
+	<div class="modal-content">
+		<div class="box has-text-centered">
+			<h1 class="title is-4">Faire avancer le moteur pendant le nombre de millisecondes suivant :</h1>
+			<form action="javascript:setTimeout(function(){send(clicked_device,'command','run-timed')},200);document.querySelectorAll('.modal').forEach((modal) => modal.classList.remove('is-active'))">
+				<input id="time_input" class="input" type="text" pattern="[0-9]+" placeholder="Durée (en ms)" title="Un entier positif" onchange="send(clicked_device, 'time_sp', this.value)">
+				<input type="submit" class="button is-success mt-5" value="OK">
+				<button type="button" class="button is-danger mt-5" onclick="document.querySelectorAll('.modal').forEach((modal) => modal.classList.remove('is-active'))">ANNULER</button>
+			</form>
+		</div>
+	</div>
+</div>

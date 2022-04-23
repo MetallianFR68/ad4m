@@ -1,0 +1,52 @@
+<div id="{{TAB_ID}}_{{DEVICE_ID}}" class="column is-3 motor">
+	<div id="{{TAB_ID}}_{{DEVICE_ID}}_box" class="column box" style="border-top:3px solid hsl(217, 71%, 53%); background-position: right 0.5rem top 4rem; background-size:45%; background-repeat: no-repeat">
+		
+		<span id="{{TAB_ID}}_{{DEVICE_ID}}_friendly_name" class="title is-4 is-centered"></span> <span id="{{TAB_ID}}_{{DEVICE_ID}}_address" class="title is-4 is-centered"></span><br/>
+		
+		
+		<div class="container" style="text-align:right;margin-top:-2rem">
+			<div class="dropdown is-right" onclick="change_driver_dropdown(this)">
+				<div class="dropdown-trigger">
+				<button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+					<span class="icon is-small">
+					<i class="fas fa-gear" aria-hidden="true"></i>
+					</span>
+				</button>
+				</div>
+				<div class="dropdown-menu is-visible" id="{{TAB_ID}}_{{DEVICE_ID}}_driver_change_dropdown_menu" role="menu">
+				<div id="{{TAB_ID}}_port{{PORT_NUMBER}}_driver_change_dropdown_menu_content" class="dropdown-content has-text-left is-visible"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="select mt-3">
+			<select id="{{TAB_ID}}_{{DEVICE_ID}}_stop_action" onchange="motor_stopaction_change(this)">
+				<option value="coast">Coast</option>
+				<option value="brake">Brake</option>
+				<option value="hold">Hold</option>
+			</select>
+		</div>
+
+		<label class="label has-text-info is-size-6 mt-2">Vitesse : <span id="{{TAB_ID}}_{{DEVICE_ID}}_speed_value"></span></label>
+		<label class="label has-text-info is-size-6">Position : <span id="{{TAB_ID}}_{{DEVICE_ID}}_position_value"></span></label>
+		<label class="label has-text-info is-size-6">Status : <span id="{{TAB_ID}}_{{DEVICE_ID}}_state_value"></span></label>
+		
+		<label class="label">Vitesse à atteindre : <span id="{{TAB_ID}}_{{DEVICE_ID}}_speed_sp_value"></span></label>
+		<input class="slider is-fullwidth" id="{{TAB_ID}}_{{DEVICE_ID}}_speed_sp" type="range" step="1" min="0" value="0" max="0" onchange="motor_speed_change(this)" oninput="document.getElementById('{{TAB_ID}}_{{DEVICE_ID}}_speed_sp_value').innerText = this.value">
+
+		<label class="label">Accélération (ms)</label>
+		<input class="input" id="{{TAB_ID}}_{{DEVICE_ID}}_ramp" type="text" placeholder="Ramping" onchange="motor_ramping_change(this)">
+		
+		<br/><br/>
+		<div class="container has-text-centered">
+			<button id="{{TAB_ID}}_{{DEVICE_ID}}_run_abs_pos_button" class="button is-link is-small" onclick="motor_run_abs_pos(this)"><span class="icon"><i class="fa-solid fa-arrow-right-long"></i></span><span>Position</span></button>
+			<button id="{{TAB_ID}}_{{DEVICE_ID}}_run_rel_pos_button" class="button is-link is-small" onclick="motor_run_rel_pos(this)"><span class="icon"><i class="fa-solid fa-shoe-prints"></i></i></span><span>Steps</span></button>
+			<button id="{{TAB_ID}}_{{DEVICE_ID}}_run_timed_button" class="button is-link is-small" onclick="motor_run_timed(this)"><span class="icon"><i class="fa-solid fa-stopwatch"></i></span><span>Time</span></button>
+			<br/><br/>
+			<button id="{{TAB_ID}}_{{DEVICE_ID}}_run_forever_button" class="button is-primary" onclick="motor_run_forever(this)">Go</button>
+			<button id="{{TAB_ID}}_{{DEVICE_ID}}_reset_button" class="button is-danger" onclick="motor_reset(this)">Reset</button>
+			<button id="{{TAB_ID}}_{{DEVICE_ID}}_stop_button" class="button is-danger" onclick="motor_stop(this)">Stop</button>
+		</div>
+
+	</div>
+</div>

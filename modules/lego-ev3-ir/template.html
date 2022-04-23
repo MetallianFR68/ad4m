@@ -1,0 +1,37 @@
+<div id="{{TAB_ID}}_{{DEVICE_ID}}" class="column has-text-centered is-3">
+	<div class="box" style="border-top:3px solid hsl(217, 71%, 53%); min-height:360px">
+		<div id="{{TAB_ID}}_{{DEVICE_ID}}_friendly_name" class="title is-4"></div>
+		<img id="{{TAB_ID}}_{{DEVICE_ID}}_image" style="width:150px"><br/>
+		<div class="select mt-3">
+			<select id="{{TAB_ID}}_{{DEVICE_ID}}_modes_select"onchange="window['{{TAB_ID}}']['{{DEVICE_ID}}']['change_mode'](this.value)"></select>
+		</div>
+		<div id="{{TAB_ID}}_{{DEVICE_ID}}_values0" class="columns mt-4 is-variable is-1">
+			<div class="column">
+				<input id="{{TAB_ID}}_{{DEVICE_ID}}_value0" class="input is-small p-1 has-text-centered" type="text">
+			</div>
+			<div class="column is-hidden">
+				<input id="{{TAB_ID}}_{{DEVICE_ID}}_value1" class="input is-small p-1 has-text-centered" type="text">
+			</div>
+			<div class="column is-hidden">
+				<input id="{{TAB_ID}}_{{DEVICE_ID}}_value2" class="input is-small p-1 has-text-centered" type="text">
+			</div>
+			<div class="column is-hidden">
+				<input id="{{TAB_ID}}_{{DEVICE_ID}}_value3" class="input is-small p-1 has-text-centered" type="text">
+			</div>
+		</div>
+		<div id="{{TAB_ID}}_{{DEVICE_ID}}_values1" class="columns is-variable is-1">
+			<div class="column is-hidden">
+				<input id="{{TAB_ID}}_{{DEVICE_ID}}_value4" class="input is-small p-1 has-text-centered" type="text">
+			</div>
+			<div class="column is-hidden">
+				<input id="{{TAB_ID}}_{{DEVICE_ID}}_value5" class="input is-small p-1 has-text-centered" type="text">
+			</div>
+			<div class="column is-hidden">
+				<input id="{{TAB_ID}}_{{DEVICE_ID}}_value6" class="input is-small p-1 has-text-centered" type="text">
+			</div>
+			<div class="column is-hidden">
+				<input id="{{TAB_ID}}_{{DEVICE_ID}}_value7" class="input is-small p-1 has-text-centered" type="text">
+			</div>
+		</div>
+	</div>
+</div>

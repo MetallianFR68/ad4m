@@ -1,0 +1,6 @@
+<span class="title">LEDs</span>
+<button class="button is-success" style="margin-left:24px" onclick="document.querySelectorAll('#{{TAB_ID}}_leds input[type=RANGE]').forEach(slider => {slider.value=255; slider.onchange()})">All ON</button>
+<button class="button is-danger" style="margin-left:24px" onclick="document.querySelectorAll('#{{TAB_ID}}_leds input[type=RANGE]').forEach(slider => {slider.value=0; slider.onchange()})">All OFF</button><br/><br/>
+<div class="box" style="border-top:3px solid hsl(217, 71%, 53%)">
+	<div id="{{TAB_ID}}_leds_0_columns" class="columns is-centered"></div>
+</div>
